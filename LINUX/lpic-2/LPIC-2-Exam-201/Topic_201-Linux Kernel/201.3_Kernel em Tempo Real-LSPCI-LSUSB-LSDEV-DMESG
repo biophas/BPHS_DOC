@@ -1,0 +1,33 @@
+# 201.3 - Kernel em Tempo Real - lspci, lsusb, lsdev e dmesg
+--> lspci (List all PCI devices)
+
+
+	lspci 
+	-v Verbose 
+	-s Show only devices in selected slot 
+
+# Mostra somente o dispositivo dentro do slot selecionado
+
+	lspci -s 00:02 -v	 
+
+--> lsusb (List USB devices)
+
+	lsusb 
+	-v Verbose 
+	-d Vendor 
+	-s bus:devnum
+
+
+--> lsdev (Display information about installed hardware) 
+
+# Para a utilização do udev é necessário a instalação do pacote procinfo.
+
+	apt-get install procinfo 
+
+-- > dmesg (Print or control the kernel ring buffer) É used to examine or control the kernel ring buffer 
+
+
+
+
+
+

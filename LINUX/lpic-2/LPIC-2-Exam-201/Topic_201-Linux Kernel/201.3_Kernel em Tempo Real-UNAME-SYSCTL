@@ -1,0 +1,95 @@
+# 201.3 - Kernel em Tempo Real - Parâmetros (uname e sysctl)
+
+
+uname -a ou --all Imprime todas as informações, na ordem a seguir: 
+
+
+# Imprime o nome do kernel
+-s ou --kernel-name  
+
+# Imprime o nome do nó da máquina de rede
+-n --nodename 
+
+# Imprime a versão de liberação do kernel
+-r --kernel-release  
+
+# Imprime a versão(data) da compilação do kernel
+-v --kernel-version  
+
+# Imprime o nome do hardware da máquina (arquitetura)
+-m --machine
+
+# Imprime o tipo de processaodr
+
+-i --hardware-platform   
+
+# Imprime o nome do processaodr
+
+-p --platform
+
+# Imprime o sistema operacional
+
+-o --operiting-system  
+
+OBS: Essas informações são pegas em /proc/sys/kernel a partição virtual do sistema
+
+
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+# SYSCTL (Configura os parametros do kernel em tempo real)
+
+
+Tips. As informações em tempo real do Kernel ficam em /proc/sys/kernel 
+
+# Consultando o arquivo fs.file-max que fica em /proc/sys/fs/
+
+
+~~ Consult one
+
+	cat /proc/sys/fs/file-max 
+
+~~ Consult two (O sysctl parte do /proc/sys/ como diretório inicial)
+
+	sysctl fs.file-max  
+
+--> Existem duas formas de alterar o parâmetro de um kernel
+
+
+# Enviando valores através do comando echo para o parâmetro file-max
+
+	echo 10000 > /proc/sys/fs/file-max
+
+# Passando o parâmetro direto sem o path
+
+	sysctl -w fs.file-max=100000 
+
+TIPS: As alterações são commitadas apenas após a configuração do arquivo localizado em:
+
+/etc/sysctl.conf 
+
+# Link simbólico para o ../sysctl.conf 
+
+	/etc/sysctl.d/99-sysctl.conf 
+
+--> Material complementar 
+
+# Para listar os atuais parâmetros de seu kernel digite:
+
+	systecl -a 
+
+# Alterando temporariamente um parâmetro, 
+
+	sysctl -w {nome-variável=valor}
+
+	sysctl -w fs.file-max=100000
+
+# Editando o arquivo sysctl.conf e manter as alterações após um boot
+
+	echo fs.file-max=100000 > /etc/syctl.conf && sysctl -p 
+
+# Read values from file  
+
+	sysctl -p 
+
+
+

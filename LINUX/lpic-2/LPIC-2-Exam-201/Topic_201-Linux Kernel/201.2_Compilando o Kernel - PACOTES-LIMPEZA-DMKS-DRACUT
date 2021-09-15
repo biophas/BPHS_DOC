@@ -1,0 +1,94 @@
+201.2 - Compilando o Kernel - Pacotes, Limpeza, DMKS e Dracut
+
+
+--> make deb-pkg (Gera diversos pacotes nas distribuições debian)
+
+Gera diversos arquivos .deb em /usr/src, sendo mais importante o: 
+
+	linux-imagem-4.00.0000_4.00.0000-2_amd64.deb 
+
+É possível atualizar o kernel de uma estação utilizando este pacote com o comando:
+
+	dpkg -i linux-imagem-4.00.0000_4.00.0000-2_amd64.deb
+
+
+--> make rpm-pkg (Gera diversos pacotes nas distribuições red hat)
+
+
+--> make binrpm-pkg (Gera somente a imagem compilada) 
+
+--> DKMS (Dynamic Kernel Module Support) 
+
+	- Framework criado pela DELL.
+
+	- Lançado para resolver problemas na hora de atualizar o kernel.
+
+	- Toda vez que era lançado uma nova versão, era necessário recompilar os MÓDULOS EXTERNOS manualmente. 
+
+
+Ex. Placas de vídeo
+
+  	apt-get install dkms 
+
+--> zfs-dkms é um sistema de arquivos 
+
+--> É instalado dois pacotes, e os arquivos fontes são salvos no diretório /usr/src: 
+
+
+Diretórios: zfs-version e spl-version 
+
+zfs-version 
+	> dkms.conf (Configuração do módulo que será incorporado ao DKMS)
+
+spl-version 
+
+OBS: Para compilar um módulo é preciso ter os headrs do kernel atual. 
+
+--> Após a instalação pode ser checado com o comando: 
+
+# Verificando status 
+
+	dkms status 
+
+# Desinstalando um módulo com o dkms 
+
+	dkms remove zfs/versão --all
+
+--all (remove o módulo de todos os kernels)
+
+# Adicionando novamente 
+
+	dkms add zfs/versão --all
+
+
+--> Padrão Debian 
+
+# Atualizando o arquivo initrd da instalação do Debian
+
+	update-initramfs -u  
+	mkinitramfs 
+
+--> Padrão Red hat 
+
+--> DRACUT é substituto do mkinitrd nas distribuições red hat (Ferramenta de baixo nível para a geração de uma imagem initramfs).
+
+--> O mkinird é um compat wrapper, qual chama o dracut para a geração do initramfs.
+
+# Forçando a escrita para atualização do initramfs
+
+	dracut --force 
+
+# Limpa os arquivos compilados (Módulos compilados, arquivos compilados e a imagem em arch/x86/boot/bzImage)
+
+	make clean 
+
+# Limpa além dos arquivos compilados também será limpo o arquivo .config 
+
+	make mrproper 
+
+
+
+
+
+
+

@@ -1,0 +1,19 @@
+Problemas update no Debian 
+
+Os passos abaixo é utilizado para resolver problemas na hora de realizar um update, ou seja atualizando os indices do arquivo /etc/apt/sources.list
+
+
+# Edit file /etc/sysctl.conf 
+
+	sudo vim /etc/sysctl.conf 
+	
+# Adicionar a linha abaixo no arquivo /etc/sysctl.conf
+
+	net.ipv6.conf.all.disable_ipv6 = 1
+
+# Para gravar as informações utiliza o comando abaixo:
+
+	sudo sysctl -p
+	
+
+Validado em 06/09/2020

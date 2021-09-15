@@ -1,0 +1,83 @@
+# 203.2 - Manutenção de um Sistema de Arquivos Linux - brtfs
+
+Btrfs - Btreefs Características 
+
+Filesystem moderno
+Foco em tolerância a falhas e facilidade de administração e reparo
+
+Recursos 
+
+Raid 0,1 e 10 
+Subvolumes 
+Snapshots 
+Compressão direto no FS (zlib e LZO)
+Conversão ext3/4 para btrfs 
+
+# Verificando o suporte a tipos de filesystem como por exemplo btrfs 
+
+cat /proc/filesystems 
+
+Obs. Obeservar se o módulo está carregado.
+
+lsmod | grep btrfs 
+
+# Para carregar o módulo 
+
+modprobe brtfs 
+
+# Instalando para o manuseio do btrfs é necessário instalar as ferramentas btrfs-tools 
+
+apt-get install btrfs-tools 
+
+# Criando uma partição btrfs 
+
+mkfs.btrfs /dev/sdb1 
+
+# Para listar as partições btrfs 
+
+btrfs filesystems show 
+
+# Criando subvolumes 
+
+
+
+btrfs subvolume create /mnt/btrfs1/SubVol1 2 3 etc 
+
+
+# Listando os subvolumes 
+
+brtfs subvolume list /mnt/btrfs1 
+btrfs subbolume show /mnt/btrfs1 
+
+# Listando dados de um subvolume específico, mostra informações como o seu próprio UUID 
+
+btrfs subvolume show /mntbtrfs1/SubVol1 
+brtfs subvolume list /mnt/btrfs1 -t 
+
+# Montando um subvolume em um diretório 
+
+mount -o subvol=Sub1 /dev/sdb5 /mnt/SubVolume1/ 
+
+# Criando snapshot 
+
+btrfs subvolume snapshot /mnt/SubVolume1/SubVol1 /mnt/SubVolume1/Snap1 
+
+# Formantando discos btrfs em raid1 
+
+mkfs.btrfs -d /dev/sdc1 /dev/sdc2 (utilizar o -f para forçar) 
+
+Obs. Mesmo montando o disco 2 do raid ele sempre mostrará o primeiro disco ao digiar o comando df -Th
+
+# Conversão de filesystem 
+
+btrfs-convert /dev/sdc3 (O disco tem que está em ext3 ou ext4)
+
+Após a conersão são mantidos os mesmos arquivos e é criado o diretório ext2_saved dentro um arquivo chamado iamge
+
+
+
+
+
+
+
+

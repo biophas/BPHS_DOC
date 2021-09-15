@@ -1,0 +1,15 @@
+#TROUBLESHOOT VIRTUAL BOX NO LINUX
+
+#Tipo de Problema
+
+Erro: /sbin/vboxconfig
+
+Solução: Instalar os seguinte pacotes, gcc, make, perl, virtualbox-dkms 
+
+apt-get install gcc make perl -y
+
+# Repositório do pacotes virtualbox-dkms 
+
+deb http://ftp.de.debian.org/debian jessie main contrib
+
+

@@ -1,0 +1,150 @@
+File Globbing x REGEX 
+
+File Globbing - É uma forma que o bash tem para selecionar arquivos e diretórios na interface (ls,cp, mv etc..)
+
+# Uso do * 
+
+	ls -l Aula*	# Lista todos os arquivos com o nome Aula e qualquer caracter que venha DEPOIS
+
+	-rw-r--r-- 1 ubuntu ubuntu 0 Sep  1  2017 Aula1
+	-rw-r--r-- 1 ubuntu ubuntu 0 Sep  1  2017 Aula10
+	-rw-r--r-- 1 ubuntu ubuntu 0 Sep  1  2017 Aula11
+
+
+	ls -l *11	# Lista todos os arquivos e diretório que termine com 11
+
+# Uso do ? 	
+	
+	ls -l Aula?	# Lista todos arquivos e diretórios que tenha somente UM caracter após a letra a
+
+	-rw-r--r-- 1 ubuntu ubuntu 0 Sep  1  2017 Aula1
+	-rw-r--r-- 1 ubuntu ubuntu 0 Sep  1  2017 Aula2
+	-rw-r--r-- 1 ubuntu ubuntu 0 Sep  1  2017 Aula3
+	
+
+	ls -l Aula??	# Lista todos arquivos e diretórios que tenha DOIS caracter após a letra a
+
+	-rw-r--r-- 1 ubuntu ubuntu 0 Sep  1  2017 Aula10
+	-rw-r--r-- 1 ubuntu ubuntu 0 Sep  1  2017 Aula11
+	-rw-r--r-- 1 ubuntu ubuntu 0 Sep  1  2017 Aula12
+
+# Uso da colchetes LISTA 
+    
+	ls -l Aula[123]	# Lista todos os arquivos e diretórios que TERMINAM em 1,2 e 3 
+
+	-rw-r--r-- 1 ubuntu ubuntu 0 Sep  1  2017 Aula1
+	-rw-r--r-- 1 ubuntu ubuntu 0 Sep  1  2017 Aula2
+	-rw-r--r-- 1 ubuntu ubuntu 0 Sep  1  2017 Aula3
+
+
+    ls -l Aula[1-5] # Lista todos os arquivos e diretórios que terminam do 1 ao 5 
+
+	-rw-r--r-- 1 ubuntu ubuntu 0 Sep  1  2017 Aula1
+	-rw-r--r-- 1 ubuntu ubuntu 0 Sep  1  2017 Aula2
+	-rw-r--r-- 1 ubuntu ubuntu 0 Sep  1  2017 Aula3
+	-rw-r--r-- 1 ubuntu ubuntu 0 Sep  1  2017 Aula4
+	-rw-r--r-- 1 ubuntu ubuntu 0 Sep  1  2017 Aula5
+
+
+	
+
+# Uso das chaves STRINGS 
+
+	ls -l {Aula,AULA}11	# Lista os arquivos que tenha o mesmo valor na string passada dentro das chaves 
+
+	-rw-r--r-- 1 ubuntu ubuntu 0 Sep  1  2017 Aula11
+	-rw-r--r-- 1 ubuntu ubuntu 0 Sep  1  2017 AULA11
+
+
+
+REGEX - Função de selecionar um padrão de texto (grep, egrep e fgrep)
+
+egrep - Expressões regulares extendidas  (Deixa o comando mais pesado)
+grep  - Expressões regulares simples
+fgrep - Não usa expressões 
+
+
+# Usando egrep com REGEX 
+
+	egrep "[Ll]inux" texto.txt					# Imprime todas as palavras com o nome Linux iniciando com L maiúsculo ou l minúsculo 
+	
+	egrep "b[aei]g"	 texto.txt 					# Imprime todas as palavras qe começam com b e que tenham as ocorrências a,e,i na palavra e 
+	que terminem com g
+
+	egrep "^Linux"	 texto.txt    				# Imprime todas as ocorrências que começem como a palavra Linux
+	egrep "^#" texto.txt 						# Imprime todas as ocorrências que começem a linha com # 
+	egrep -v "^#" texto.txt						# Ele não mostra as ocorrências que começem com o #
+
+	egrep "Linux$" texto.txt				    # Sempre que a ocorrência for no final da linha será mostrada 
+
+	egrep "^$" texto.txt						# Será mostrado todas as ocorrências de linhas vazias 
+	egrep -v "^$" texto.texto					# Não será mostrado as ocorrências de linhas que estão vazias
+
+--> Caracters especiais 
+
+
+	egrep "b[a-i]g*" texto.txt 		# A palavra começa com a letra b, podenddo ser ba,be ou bi, terminando com a letra g, sendo que 										pode até mesmo não existir e que também possa ter uma ou mais ocorrências da letra g
+
+	egrep "b[a-i]g+" texto.txt 		# A palavra começa com b e que pode ser ba, be ou bi termine com a letra g e que deve existir pelo 										menos uma ou mais ocorrências da letra g
+	egrep "b[a-i]g?" text.txt 		# A palavra começa com b e que pode ser ba,be ou bi, e que termine com a letra g e que pode até 										não existir, mas que apareça somente uma vez. 
+
+	egrep "O.Linux"	text.txt 		# Imprime a linhas que tenha um caracter entre a letra O e o nome Linux
+	
+	egrep "O.*Linnux" texto.txt 	# O caracter anterior pode não existir, mas que também posso ter varias ocorrências
+
+	egrep "[Ll]inux." texto.txt
+	egrep "[Ll]inux\." texto.txt 
+
+
+	sed '/^#/d' text.txt
+	sed 's/^[Ll]inux/Unix/g' texto.txt
+	  	
+
+
+--> Resumo 
+
+	* Pode aparecer NENHUMA ou varias vezes 
+	+ Pode aparecer UMA ou varias vezes 
+	? Pode aparecer NENHUMA ou apenas UMA VEZ
+	. Ele substitui um caracter 
+	.*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

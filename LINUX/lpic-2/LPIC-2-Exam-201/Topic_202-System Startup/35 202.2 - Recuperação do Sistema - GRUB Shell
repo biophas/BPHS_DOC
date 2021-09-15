@@ -1,0 +1,69 @@
+# 202.2 - Recuperação do Sistema - GRUB Shell
+
+Com o prompt do grub pode ser utilizado o comando ls para listar as partições
+
+# Lendo informações da partição 
+
+ls 
+(proc) (hd0) (hd0,msdos5) (hd0,msdos3) (hd0,msdos2) (hd0,msdos1)
+
+# Trazendo informações da partição
+
+ls (hd0,msdos5) 
+
+# Listando o conteúdo da partição 
+
+ls (hd0,msdos5)/ 
+
+# Listando as informações das partições 
+
+cat (hd0,msdos5)/boot/grub/grub.cfg 
+
+# Realizando o boot de forma manual 
+
+--> Localizar a partição de boot 
+
+
+ls (hd0,msdos5)/
+
+set root=(hd0,msdos5)
+linux /vmlinuz-a-b-c 
+
+--> É necessário também saber onde está a / raiz e a partição de /boot, para isso utilize o tune2fs para atribuir label as partições 
+
+tune2fs -L BOOT /dev/sda1 
+
+--L Configuração necessário para um boot manual
+
+# Identificando as partições 
+
+ls
+
+# Listando as informações de uma partição (ex. label, filesystem etc)
+
+ls (hd0,msdos1)
+
+# Listando o conteúdo da partição 
+
+ls (hd0,msdos1)/ 
+
+--L Realizando boot manual 
+
+# Entrando na partição de boot 
+
+set root=(hd0,msdos1) 
+
+# Informando onde deve carregado a imagem do kernel, e onde vai ser montando a partição raiz. 
+
+linux /vmlinuz-4.9.0-9-amd64 root=/dev/sda2 
+
+# Informando onde o arquivo de imagem initrd 
+
+initrd /initrd.img-4.9.0-9-amd64
+
+# Realizando o boot 
+
+boot 
+
+
+

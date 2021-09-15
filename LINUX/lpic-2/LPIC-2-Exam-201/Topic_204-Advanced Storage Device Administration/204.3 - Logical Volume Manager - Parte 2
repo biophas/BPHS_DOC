@@ -1,0 +1,84 @@
+# 204.3 - Logical Volume Manager - Parte 2
+
+
+# Aumentando volume group 
+
+pvcreate /dev/sdc2 && pvs && vgextend group1 /dev/sdc2 && vgs (Informa a quantidade de pvs)
+
+# Aumentando um logical volume 
+
+lvextend -L 15G /dev/grupo1/lv-teste1 && lvs && resize2fs /dev/mapper/grupo1-lvgteste1 
+
+# Diminuindo o tamanho de um filesystems
+
+Obs. Antes de diminuir deve ser redimensionado o filesystem, a mexer no tamanho do volume sem redimensionar o file system, irá destruir as informações do disco. 
+
+
+e2fsck -f /dev/mapper/grupo1-lvg-teste1 && resize2fs /dev/mapper/grupo1-lvgroup 10G && lvreduce -L 13G /dev/grupo1/lvgroup && lvs 
+
+# Removendo volume lógico 
+
+O comando pvs é necessário para verificar quais discos estão sendo utilizados, ao digitar vgreduce será mostrado a mensagem se o disco pôde ser removido ou se ele está em uso. 
+
+vgreduce grupo1 /dev/sdc2
+
+  PV         VG     Fmt  Attr PSize  PFree 
+  /dev/sdc1  grupo1 lvm2 a--  10,00g     0 
+  /dev/sdc2  grupo1 lvm2 a--  10,00g  4,99g
+  /dev/sdd1         lvm2 ---  10,00g 10,00g
+
+
+Obs. Só consigo remover disco de volume group caso ele não esteja sendo uutilizado 
+
+# Renomenado um vg ou um lv 
+
+vgrename grupo1 grupo2 || lvrename /dev/grupo2/lvgroup /dev/grupo2/lvgroup2
+
+# Criando snapshot 
+
+umount /mnt/teste1 && lvcreate -L1G -s -n teste-snapshot /dev/foton1/teste10 
+
+-L1G - Não precisa ser do tamanho dos dados existentes no diretório que será tirado a foto
+
+-n - name String
+-s - snapshot 
+
+teste-snapshot - Nome do snapshot a ser criado 
+
+/dev/foton1/teste10 - Diretório a ser tirado o snapshot 
+
+Obs. O tamanho do snapshot pode ser de 10 a 20% do total dos arquivos, ao digitar um lvdisplay temos a informação que o determinado lvs é origem de um snapshot realizado com o nome xyz, também possível identificar o snapshot com o comando lvdisplay. 
+
+
+
+mount /dev/mapper/grupo2-teste--snapshot /mnt/lvm2 
+
+# Removendo um snapshot 
+
+lvs
+umount /mnt/lvm2
+lvremove /dev/grupo2/teste-snapshot
+
+
+# Criando um snapshot
+
+cp -prf /etc/* .
+
+
+lvcreate -L1G -s -n teste-snapshot /dev/foton1/teste10 && 
+
+
+mount /dev/foton1/teste10 /mnt/teste1 
+mount /dev/foton1/teste-snap /mnt/teste2 
+
+ls -l /dev/foton1/teste10 /mnt/teste1 | wc -l 
+ls -l /dev/foton1/teste-snap /mnt/teste2 | wc -l 
+
+umount /dev/foton1/teste-snap /mnt/teste2 && lvremove /dev/foton1/teste-snap /mnt/teste2
+
+Obs. O tamanho do snapshot pode ser de 15% a 20% do tamanho real do diretório lvm 
+
+
+
+
+
