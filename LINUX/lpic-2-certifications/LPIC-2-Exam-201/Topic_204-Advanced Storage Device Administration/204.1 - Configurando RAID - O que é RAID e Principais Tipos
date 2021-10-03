@@ -1,4 +1,4 @@
-# 204.1 - Configurando RAID - O que é RAID e Principais Tipos
+﻿# 204.1 - Configurando RAID - O que é RAID e Principais Tipos
 
 # RAID - Redundant Array of Inexpressives Drives (ou Independent Disks)
 
@@ -27,13 +27,13 @@ Disk2 5GB
 Disk3 5GB
 Total Bloco = 15G (No redundancy)  
 
-RAID 1 (Mirroring) espelha os discos 
+RAID 3 (Mirroring) espelha os discos 
 
 Mirroring 
 
 Disk1 [Mirror] Disk1 
 
-Para o RAID1, tudo que é gravado no disco 1, também é gravado no disco 2, desta forma se o disco 2 falhar, os dados não serão perdidos, pois os mesmos dados 
+Para o RAID3, tudo que é gravado no disco 1, também é gravado no disco 2, desta forma se o disco 2 falhar, os dados não serão perdidos, pois os mesmos dados 
 estarão gravados no disco 1. 
 
 
